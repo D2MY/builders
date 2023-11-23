@@ -16,7 +16,7 @@ class BaseQueryBuilder extends QueryBuilder
      * @param string $expression
      * @return Closure|null
      */
-    function normalizedWhere(string $column, array|int|string|null $value, string $expression = '='): ?Closure
+    public function normalizedWhere(string $column, array|int|string|null $value, string $expression = '='): ?Closure
     {
         [$method, $args] = match (true) {
             is_array($value) => ['whereIn', [$column, $value]],
@@ -27,15 +27,5 @@ class BaseQueryBuilder extends QueryBuilder
         return function (EloquentBuilder|QueryBuilder $query) use ($args, $method) {
             $query->$method(...$args);
         };
-    }
-
-    /**
-     * @param $method
-     * @param $parameters
-     * @return BaseQueryBuilder|mixed
-     */
-    public function __call($method, $parameters)
-    {
-        return parent::__call($method, $parameters);
     }
 }
