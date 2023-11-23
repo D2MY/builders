@@ -5,13 +5,8 @@ namespace D2my\Builders;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 
-trait CustomBuilders
+trait ExtendedBuilders
 {
-    /**
-     * @var string
-     */
-    public static string $buildersPath = 'App\\Builders';
-
     /**
      * @param $query
      * @return EloquentBuilder
@@ -19,7 +14,12 @@ trait CustomBuilders
     public function newEloquentBuilder($query): EloquentBuilder
     {
         $builder = $this->eloquentBuilder ??
-            sprintf('%s\\%s\\%sEloquentBuilder', self::$buildersPath, $class = class_basename($this), $class);
+            sprintf(
+                '%s\\%s\\%sEloquentBuilder',
+                config('builders.base_namespace', 'App\\Builders'),
+                $class = class_basename($this),
+                config('builders.model_name_in_builders_names') ? $class : ''
+            );
 
         if (class_exists($builder)) {
             return new $builder($query);
@@ -34,7 +34,12 @@ trait CustomBuilders
     protected function newBaseQueryBuilder(): QueryBuilder
     {
         $builder = $this->queryBuilder ??
-            sprintf('%s\\%s\\%sQueryBuilder', self::$buildersPath, $class = class_basename($this), $class);
+            sprintf(
+                '%s\\%s\\%sQueryBuilder',
+                config('builders.base_namespace', 'App\\Builders'),
+                $class = class_basename($this),
+                config('builders.model_name_in_builders_names') ? $class : ''
+            );
 
         if (class_exists($builder)) {
             return new $builder(
