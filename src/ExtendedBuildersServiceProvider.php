@@ -13,7 +13,7 @@ class ExtendedBuildersServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../../config/builders.php' => config_path('builders.php'),
+                __DIR__ . '/../config/builders.php' => config_path('builders.php'),
             ], 'builders');
         }
     }
