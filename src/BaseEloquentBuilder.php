@@ -19,11 +19,11 @@ class BaseEloquentBuilder extends Builder
             return $this->whereHas($this->replaceMethodName($method, 'has'), ...$parameters);
         }
 
-        if (str_starts_with($method, 'or')) {
-            return $this->orWhere(fn (self $query) =>
-                $query->{$this->replaceMethodName($method, 'or')}(...$parameters)
-            );
-        }
+//        if (str_starts_with($method, 'or')) {
+//            return $this->orWhere(fn (self $query) =>
+//                $query->{$this->replaceMethodName($method, 'or')}(...$parameters)
+//            );
+//        }
 
         return parent::__call($method, $parameters);
     }
