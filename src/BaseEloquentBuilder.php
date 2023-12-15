@@ -15,9 +15,9 @@ class BaseEloquentBuilder extends Builder
      */
     public function __call($method, $parameters)
     {
-        if (str_starts_with($method, 'has')) {
-            return $this->whereHas($this->replaceMethodName($method, 'has'), ...$parameters);
-        }
+//        if (str_starts_with($method, 'has')) {
+//            return $this->whereHas($this->replaceMethodName($method, 'has'), ...$parameters);
+//        }
 
 //        if (str_starts_with($method, 'or')) {
 //            return $this->orWhere(fn (self $query) =>
